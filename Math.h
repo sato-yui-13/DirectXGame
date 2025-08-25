@@ -1,23 +1,21 @@
 ﻿#pragma once
 
-
-#include "KamataEngine.h"
+#include <KamataEngine.h>
 
 using namespace KamataEngine;
 
-
-
-
+// class Math
+//{
+// public:
 
 // 加算
 Vector3 Add(const Vector3& v1, const Vector3& v2);
+
 // 減算
 Vector3 Subtract(const Vector3& v1, const Vector3& v2);
 
 // スカラー倍
 Vector3 Multiply(float scalar, const Vector3& v1);
-
-
 
 // 内積
 float Dot(const Vector3& v1, const Vector3& v2);
@@ -25,14 +23,11 @@ float Dot(const Vector3& v1, const Vector3& v2);
 // 長さ(ノルム)
 float Length(const Vector3& v1);
 
-
-
 // 正規化
 Vector3 Normalize(const Vector3& v);
 
 // 1.行列の加法
 Matrix4x4 Add(const Matrix4x4& m1, const Matrix4x4& m2);
-
 
 // 2.行列の減法
 Matrix4x4 Subtract(const Matrix4x4& m1, const Matrix4x4& m2);
@@ -93,9 +88,6 @@ float Lerp(float x1, float x2, float t);
 
 Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t);
 
-// 円周率
-const float PI = 3.141592654f;
-
 struct AABB {
 	Vector3 min;
 	Vector3 max;
@@ -103,3 +95,4 @@ struct AABB {
 
 bool IsCollision(const AABB& aabb1, const AABB& aabb2);
 
+//}

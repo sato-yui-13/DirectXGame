@@ -1,7 +1,8 @@
 ﻿#pragma once
 
+#include "Fade.h"
 #include "KamataEngine.h"
-#include "UpData.h"
+#include "Update.h"
 
 using namespace KamataEngine;
 
@@ -17,6 +18,12 @@ public:
 
 	// 02_12 26枚目
 	bool IsFinished() const { return finished_; }
+
+	enum class Phase {
+		kFadeIn,
+		kMain,
+		kFadeOut,
+	};
 
 private:
 	static inline const float kTimeTitleMove = 2.0f;
@@ -37,4 +44,8 @@ private:
 	float counter_ = 0.0f;
 	// 02_12 26枚目
 	bool finished_ = false;
+
+	Fade* fade_ = nullptr;
+
+	Phase phase_ = Phase::kFadeIn;
 };

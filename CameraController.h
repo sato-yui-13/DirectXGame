@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include "KamataEngine.h"
+#include <KamataEngine.h>
 
-
+using namespace KamataEngine;
 
 class Player;
 
@@ -19,7 +19,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(KamataEngine::Camera* camera);
+	void Initialize(Camera* camera);
 
 	void Updata();
 
@@ -32,16 +32,16 @@ public:
 	void SetMovableArea(Rect area) { movableArea_ = area; }
 
 private:
-	KamataEngine::Camera* camera_ = nullptr;
+	Camera* camera_ = nullptr;
 
 	Player* target_ = nullptr;
 
 	// Math* math_ = nullptr;
 
-	Vector3 targetOffset_ = { 0, 0, -30.0f };
+	Vector3 targetOffset_ = {0, 0, -30.0f};
 
 	// カメラ移動範囲
-	Rect movableArea_ = { 0, 100, 0, 100 };
+	Rect movableArea_ = {0, 100, 0, 100};
 
 	Vector3 targetCoordinates_; // 目標座標
 
@@ -51,5 +51,5 @@ private:
 	// 速度掛け算
 	static inline const float kVelocityBias = 20.0f;
 
-	static inline const Rect targetMargin = { -9.0f, 9.0f, -5.0f, 5.0f };
+	static inline const Rect targetMargin = {-9.0f, 9.0f, -5.0f, 5.0f};
 };

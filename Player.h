@@ -3,7 +3,7 @@
 #include "KamataEngine.h"
 #include "MapChipField.h"
 #include "Math.h"
-#include "UpData.h"
+#include "Update.h"
 
 #include <algorithm>
 #include <cassert>
@@ -11,7 +11,7 @@
 
 class MapChipField;
 
-
+using namespace KamataEngine;
 
 // 02_10 21枚目
 class Enemy;

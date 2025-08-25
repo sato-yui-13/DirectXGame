@@ -1,7 +1,7 @@
 ﻿#include "Enemy.h"
 #include "MapChipField.h"
 #include "Math.h"
-#include "UpData.h"
+#include "Update.h"
 #include <algorithm>
 #include <cassert>
 #include <numbers>
@@ -20,10 +20,10 @@ void Enemy::Initialize(Model* model, Camera* camera, const Vector3& position) {
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
 	// 02_09 7枚目 角度調整
-	worldTransform_.rotation_.y = std::numbers::pi_v<float> *3.0f / 2.0f;
+	worldTransform_.rotation_.y = std::numbers::pi_v<float> * 3.0f / 2.0f;
 
 	// 02_09 16枚目
-	velocity_ = { -kWalkSpeed, 0, 0 };
+	velocity_ = {-kWalkSpeed, 0, 0};
 	// 02_09 20枚目
 	walkTimer = 0.0f;
 }
@@ -40,7 +40,7 @@ void Enemy::UpDate() {
 	// 02_09 23枚目 回転アニメーション
 	// worldTransform_.rotation_.x = std::sin(std::numbers::pi_v<float> * 2.0f * walkTimer / kWalkMotionTime);
 
-	float param = std::sin(std::numbers::pi_v<float> *2.0f * walkTimer / kWalkMotionTime);
+	float param = std::sin(std::numbers::pi_v<float> * 2.0f * walkTimer / kWalkMotionTime);
 
 	float degree = kWalkMotionAngleStart + kWalkMotionAngleEnd * (param + 1.0f) / 2.0f;
 
@@ -63,8 +63,8 @@ AABB Enemy::GetAABB() {
 
 	AABB aabb;
 
-	aabb.min = { worldPos.x - kWidth / 2.0f, worldPos.y - kHeight / 2.0f, worldPos.z - kWidth / 2.0f };
-	aabb.max = { worldPos.x + kWidth / 2.0f, worldPos.y + kHeight / 2.0f, worldPos.z + kWidth / 2.0f };
+	aabb.min = {worldPos.x - kWidth / 2.0f, worldPos.y - kHeight / 2.0f, worldPos.z - kWidth / 2.0f};
+	aabb.max = {worldPos.x + kWidth / 2.0f, worldPos.y + kHeight / 2.0f, worldPos.z + kWidth / 2.0f};
 
 	return aabb;
 }

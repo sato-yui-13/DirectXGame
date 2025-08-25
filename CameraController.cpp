@@ -4,7 +4,6 @@
 #include "Player.h"
 #include <algorithm>
 
-
 using namespace KamataEngine;
 
 void CameraController::Initialize(Camera* camera) { camera_ = camera; }

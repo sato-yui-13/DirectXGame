@@ -5,6 +5,7 @@
 TitleScene::~TitleScene() {
 	delete modelPlayer_;
 	delete modelTitle_;
+	delete fade_;
 }
 
 void TitleScene::Initialize() {
@@ -19,26 +20,44 @@ void TitleScene::Initialize() {
 
 	worldTransformTitle_.Initialize();
 
-	worldTransformTitle_.scale_ = { kPlayerTitle, kPlayerTitle, kPlayerTitle };
+	worldTransformTitle_.scale_ = {kPlayerTitle, kPlayerTitle, kPlayerTitle};
 
 	const float kPlayerScale = 10.0f;
 
 	worldTransformPlayer_.Initialize();
 
-	worldTransformPlayer_.scale_ = { kPlayerScale, kPlayerScale, kPlayerScale };
+	worldTransformPlayer_.scale_ = {kPlayerScale, kPlayerScale, kPlayerScale};
 
 	worldTransformPlayer_.rotation_.y = 0.95f * std::numbers::pi_v<float>;
 
 	worldTransformPlayer_.translation_.x = -2.0f;
 
 	worldTransformPlayer_.translation_.y = -10.0f;
+
+	fade_ = new Fade();
+	fade_->Initialize();
+	fade_->Start(Fade::Status::FadeIn, 1.0f);
 }
 
 void TitleScene::Update() {
-
-	// 02_12 27枚目
-	if (Input::GetInstance()->PushKey(DIK_SPACE)) {
-		finished_ = true;
+	switch (phase_) {
+	case Phase::kMain:
+		if (Input::GetInstance()->PushKey(DIK_SPACE)) {
+			phase_ = Phase::kFadeOut;
+			fade_->Start(Fade::Status::FadeOut, 1.0f);
+		}
+		break;
+	case Phase::kFadeIn:
+		fade_->Update();
+		if (fade_->IsFinished()) {
+			phase_ = Phase::kMain;
+		}
+		break;
+	case Phase::kFadeOut:
+		fade_->Update();
+		if (fade_->IsFinished()) {
+			finished_ = true;
+		}
 	}
 
 	counter_ += 1.0f / 60.0f;
@@ -58,14 +77,15 @@ void TitleScene::Update() {
 
 void TitleScene::Draw() {
 
-	DirectXCommon* dxCommon_ = DirectXCommon::GetInstance();
+	//DirectXCommon* dxCommon_ = DirectXCommon::GetInstance();
 	// コマンドリストの取得
-	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
+	//ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
 
-	Model::PreDraw(commandList);
+	Model::PreDraw();
 
 	modelTitle_->Draw(worldTransformTitle_, camera_);
 	modelPlayer_->Draw(worldTransformPlayer_, camera_);
 
 	Model::PostDraw();
+	fade_->Draw();
 }

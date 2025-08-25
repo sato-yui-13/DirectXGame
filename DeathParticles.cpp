@@ -16,7 +16,7 @@ void DeathParticles::Initialize(Model* model, Camera* camera, const Vector3& pos
 	objectColor_.Initialize();
 
 	// 02_11_31枚目
-	color_ = { 1, 1, 1, 1 };
+	color_ = {1, 1, 1, 1};
 }
 
 void DeathParticles::Update() {
@@ -39,7 +39,7 @@ void DeathParticles::Update() {
 	// 02_11_23枚目
 	for (uint32_t i = 0; i < kNumParticles; ++i) {
 		// 基本となる速度ベクトル
-		Vector3 velocity = { kSpeed_, 0, 0 };
+		Vector3 velocity = {kSpeed_, 0, 0};
 
 		// 回転角を計算する
 		float angle = kAngleUnit_ * i;

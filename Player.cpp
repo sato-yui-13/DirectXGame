@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "MapChipField.h"
 #include "Math.h"
-#include "UpData.h"
+#include "Update.h"
 #include <algorithm>
 #include <cassert>
 #include <numbers>
@@ -355,10 +355,10 @@ void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {
 Vector3 Player::CornerPosition(const Vector3& center, Corner corner) {
 
 	Vector3 offsetTable[] = {
-		{+kWidth / 2.0f, -kHeight / 2.0f, 0}, //  kRightBottom
-		{-kWidth / 2.0f, -kHeight / 2.0f, 0}, //  kLeftBottom
-		{+kWidth / 2.0f, +kHeight / 2.0f, 0}, //  kRightTop
-		{-kWidth / 2.0f, +kHeight / 2.0f, 0}  //  kLeftTop
+	    {+kWidth / 2.0f, -kHeight / 2.0f, 0}, //  kRightBottom
+	    {-kWidth / 2.0f, -kHeight / 2.0f, 0}, //  kLeftBottom
+	    {+kWidth / 2.0f, +kHeight / 2.0f, 0}, //  kRightTop
+	    {-kWidth / 2.0f, +kHeight / 2.0f, 0}  //  kLeftTop
 	};
 
 	return center + offsetTable[static_cast<uint32_t>(corner)];
@@ -426,7 +426,7 @@ void Player::UpDate() {
 		// タイマーを進める
 		turnTimer_ = std::max(turnTimer_ - (1.0f / 60.0f), 0.0f);
 
-		float destinationRotationYTable[] = { std::numbers::pi_v<float> / 2.0f, std::numbers::pi_v<float> *3.0f / 2.0f };
+		float destinationRotationYTable[] = {std::numbers::pi_v<float> / 2.0f, std::numbers::pi_v<float> * 3.0f / 2.0f};
 
 		float destinationRotationY = destinationRotationYTable[static_cast<uint32_t>(lrDirection_)];
 
@@ -462,8 +462,8 @@ AABB Player::GetAABB() {
 
 	AABB aabb;
 
-	aabb.min = { worldPos.x - kWidth / 2.0f, worldPos.y - kHeight / 2.0f, worldPos.z - kWidth / 2.0f };
-	aabb.max = { worldPos.x + kWidth / 2.0f, worldPos.y + kHeight / 2.0f, worldPos.z + kWidth / 2.0f };
+	aabb.min = {worldPos.x - kWidth / 2.0f, worldPos.y - kHeight / 2.0f, worldPos.z - kWidth / 2.0f};
+	aabb.max = {worldPos.x + kWidth / 2.0f, worldPos.y + kHeight / 2.0f, worldPos.z + kWidth / 2.0f};
 
 	return aabb;
 }

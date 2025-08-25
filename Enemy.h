@@ -1,9 +1,8 @@
 ﻿#pragma once
-
 #include "KamataEngine.h"
 #include "MapChipField.h"
 #include "Math.h"
-#include "UpData.h"
+#include "Update.h"
 
 using namespace KamataEngine;
 
