@@ -8,6 +8,7 @@
 #include "Skydome.h"
 #include <KamataEngine.h>
 
+
 using namespace KamataEngine;
 
 // ゲームシーン
@@ -100,4 +101,6 @@ private:
 	bool finished_ = false;
 
 	Fade* fade_ = nullptr;
+
+	
 };

@@ -3,10 +3,15 @@
 #include "TitleScene.h"
 #include <Windows.h>
 
+
 using namespace KamataEngine;
 
 TitleScene* titleScene = nullptr;
 GameScene* gameScene = nullptr;
+
+
+
+
 
 // 02_12 25枚目(Scene sceneまで)
 enum class Scene {
@@ -92,6 +97,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		if (KamataEngine::Update()) {
 			break;
 		}
+
 
 		// シーン切り替え
 		ChangeScene();

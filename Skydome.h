@@ -28,4 +28,6 @@ private:
 	Model* model_ = nullptr;
 
 	Camera* camera_ = nullptr;
+
+
 };

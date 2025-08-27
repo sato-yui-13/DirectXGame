@@ -70,6 +70,8 @@ void GameScene::Initialize() {
 
 	camera_.farZ = 1000.0f;
 
+	
+
 	// 02_03天球
 	// skydome生成
 	skydome_ = new Skydome();
@@ -248,8 +250,7 @@ void GameScene::Draw() {
 		player_->Draw();
 	}
 
-	// 天球描画
-	skydome_->Draw();
+	
 
 	for (Enemy* enemy : enemies_) {
 		enemy->Draw();
@@ -261,7 +262,7 @@ void GameScene::Draw() {
 	}
 
 	Model::PostDraw();
-
+	
 	fade_->Draw();
 }
 
@@ -305,8 +306,12 @@ void GameScene::ChangePhase() {
 
 			const Vector3& deathParticlesPosition = player_->GetWorldPosition();
 
+
+
 			deathParticles_ = new DeathParticles;
 			deathParticles_->Initialize(deathParticle_model_, &camera_, deathParticlesPosition);
+			
+
 		}
 		break;
 	case Phase::kDeath:

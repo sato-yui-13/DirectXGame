@@ -9,9 +9,8 @@ TitleScene::~TitleScene() {
 }
 
 void TitleScene::Initialize() {
-
-	modelTitle_ = Model::CreateFromOBJ("titleFont", true);
-	modelPlayer_ = Model::CreateFromOBJ("player");
+	
+		modelPlayer_ = Model::CreateFromOBJ("player");
 
 	// カメラ初期化
 	camera_.Initialize();
@@ -36,10 +35,13 @@ void TitleScene::Initialize() {
 
 	fade_ = new Fade();
 	fade_->Initialize();
+
+
 	fade_->Start(Fade::Status::FadeIn, 1.0f);
 }
 
 void TitleScene::Update() {
+	
 	switch (phase_) {
 	case Phase::kMain:
 		if (Input::GetInstance()->PushKey(DIK_SPACE)) {
@@ -81,10 +83,14 @@ void TitleScene::Draw() {
 	// コマンドリストの取得
 	//ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
 
+	
+
+
 	Model::PreDraw();
 
 	modelTitle_->Draw(worldTransformTitle_, camera_);
 	modelPlayer_->Draw(worldTransformPlayer_, camera_);
+	
 
 	Model::PostDraw();
 	fade_->Draw();

@@ -173,4 +173,7 @@ private:
 
 	// 02_12 11枚目 デスフラグ
 	bool isDead_ = false;
+
+	void Move(char* keys);
+	Bullet* bullet_ = new Bullet();
 };

@@ -251,6 +251,33 @@ void Player::UpdateOnWall(const CollisionMapInfo& info) {
 	}
 }
 
+void Player::Move(char* keys) {
+
+if (keys[DIK_SPACE]) {
+
+		if (bullet_->time_ < 3) {
+			bullet_->time_++;
+		} else {
+			bullet_->time_ = 0;
+		}
+
+		if (bullet_->time_ <= 0) {
+
+			for (int i = 0; i < 5; ++i) {
+
+				if (bullet_->isShot_[i] == 0) {
+
+					bullet_->isShot_[i] = true;
+					bullet_->x_[i] =int( velocity_.x);
+					bullet_->y_[i] = int(velocity_.y);
+					break;
+				}
+			}
+		}
+	}
+
+}
+
 // マップ衝突判定右方向
 void Player::CheckMapCollisionRight(CollisionMapInfo& info) {
 	// 右移動あり？

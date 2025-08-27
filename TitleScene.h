@@ -4,6 +4,8 @@
 #include "KamataEngine.h"
 #include "Update.h"
 
+
+
 using namespace KamataEngine;
 
 class TitleScene {
@@ -45,7 +47,12 @@ private:
 	// 02_12 26枚目
 	bool finished_ = false;
 
+
 	Fade* fade_ = nullptr;
 
 	Phase phase_ = Phase::kFadeIn;
+
+	
+	
+
 };
