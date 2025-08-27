@@ -1,4 +1,5 @@
 ﻿#define NOMINMAX
+
 #include "Player.h"
 #include "MapChipField.h"
 #include "Math.h"
@@ -18,6 +19,8 @@ void Player::Initialize(Model* model, Camera* camera, const Vector3& position) {
 	worldTransform_.Initialize();
 
 	worldTransform_.translation_ = position;
+
+	
 
 	worldTransform_.rotation_.y = std::numbers::pi_v<float> / 2.0f;
 }
@@ -251,6 +254,35 @@ void Player::UpdateOnWall(const CollisionMapInfo& info) {
 	}
 }
 
+void Player::Move(char* keys) {
+
+if (keys[DIK_SPACE]) {
+
+		if (bullet_->time_ < 3) {
+			bullet_->time_++;
+		} else {
+			bullet_->time_ = 0;
+		}
+
+		if (bullet_->time_ <= 0) {
+
+			for (int i = 0; i < 5; ++i) {
+
+				if (bullet_->isShot_[i] == 0) {
+
+					bullet_->isShot_[i] = true;
+					bullet_->x_[i] =int( velocity_.x);
+					bullet_->y_[i] = int(velocity_.y);
+					break;
+				}
+			}
+		}
+	}
+
+}
+
+
+
 // マップ衝突判定右方向
 void Player::CheckMapCollisionRight(CollisionMapInfo& info) {
 	// 右移動あり？
@@ -393,6 +425,12 @@ void Player::UpDate() {
 	// 接地判定
 	UpdateOnGround(collisionMapInfo);
 
+
+ 
+
+
+
+
 	// bool landing = false;
 
 	//// 下降あり？
@@ -442,7 +480,7 @@ void Player::UpDate() {
 //// 定数バッファに転送する
 // worldTransform_.TransferMatrix();
 
-void Player::Draw() { model_->Draw(worldTransform_, *camera_); }
+void Player::Draw() {model_->Draw(worldTransform_, *camera_); }
 
 // 02_10 10枚目
 Vector3 Player::GetWorldPosition() {
