@@ -13,6 +13,8 @@ enum class Scene {
 	kUnknown = 0,
 	kTitle,
 	kGame,
+	kClear,
+	kOver,
 };
 
 // 現在シーン（型）
@@ -42,7 +44,20 @@ void ChangeScene() {
 			gameScene = nullptr;
 			titleScene = new TitleScene;
 			titleScene->Initialize();
+		} else if (gameScene->IsFinished()) {
+			//HP0で死亡flag
+			scene = Scene::kOver;
+			titleScene = new TitleScene;
+			titleScene->Initialize();
+			delete gameScene;
+			gameScene = nullptr;
 		}
+		break;
+
+	case Scene::kClear:
+		break;
+
+	case Scene::kOver:
 		break;
 	}
 }
@@ -57,6 +72,10 @@ void UpDataScene() {
 	case Scene::kGame:
 		gameScene->Update();
 		break;
+	case Scene::kClear:
+		break;
+	case Scene::kOver:
+		break;
 	}
 }
 
@@ -68,6 +87,12 @@ void DrawScene() {
 		break;
 	case Scene::kGame:
 		gameScene->Draw();
+		break;
+	case Scene::kClear:
+
+		break;
+	case Scene::kOver:
+
 		break;
 	}
 }
@@ -87,6 +112,12 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 	// メインループ
 	while (true) {
+
+		// リセット
+		if (Input::GetInstance()->PushKey(DIK_R)) {
+			gameScene = new GameScene;
+			gameScene->Initialize();
+		}
 
 		// エンジンの更新
 		if (KamataEngine::Update()) {
