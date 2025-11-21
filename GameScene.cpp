@@ -12,6 +12,8 @@ GameScene::~GameScene() {
 
 	delete skydome_;
 
+	delete modelPlayerAttack_;
+
 	delete modelPlayer_;
 
 	delete player_;
@@ -60,8 +62,10 @@ void GameScene::Initialize() {
 
 	modelPlayer_ = Model::CreateFromOBJ("player", true);
 
+	modelPlayerAttack_ = Model::CreateFromOBJ("hit_effect");
+
 	// 自キャラの初期化
-	player_->Initialize(modelPlayer_, &camera_, playerPosition);
+	player_->Initialize(modelPlayer_, modelPlayerAttack_, &camera_, playerPosition);
 
 	worldTransform_.Initialize();
 
@@ -76,6 +80,8 @@ void GameScene::Initialize() {
 	// 初期化
 	modelSkydome_ = Model::CreateFromOBJ("skyDome", true);
 	skydome_->Initialize(modelSkydome_, &camera_);
+
+	
 
 	mapChipField_ = new MapChipField;
 

@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "KamataEngine.h"
+#include "Sound.h"
 #include "TitleScene.h"
 #include <Windows.h>
 
@@ -7,8 +8,12 @@ using namespace KamataEngine;
 
 TitleScene* titleScene = nullptr;
 GameScene* gameScene = nullptr;
+//Sound* sound = new Sound();
+//
+// MSG msg;
+//IDirectSoundBuffer8* secondaryBuffer = nullptr;
 
-// 02_12 25枚目(Scene sceneまで)
+ //  02_12 25枚目(Scene sceneまで)
 enum class Scene {
 	kUnknown = 0,
 	kTitle,
@@ -22,13 +27,17 @@ Scene scene = Scene::kUnknown;
 
 // 02_12 29枚目
 void ChangeScene() {
-
+	
 	switch (scene) {
+
 	case Scene::kTitle:
 		if (titleScene->IsFinished()) {
 			// シーン変更
 			scene = Scene::kGame;
 			delete titleScene;
+			
+			
+
 			titleScene = nullptr;
 			gameScene = new GameScene;
 			gameScene->Initialize();
@@ -44,8 +53,11 @@ void ChangeScene() {
 			gameScene = nullptr;
 			titleScene = new TitleScene;
 			titleScene->Initialize();
+			
+		
+
 		} else if (gameScene->IsFinished()) {
-			//HP0で死亡flag
+			// HP0で死亡flag
 			scene = Scene::kOver;
 			titleScene = new TitleScene;
 			titleScene->Initialize();
@@ -97,6 +109,8 @@ void DrawScene() {
 	}
 }
 
+	bool condition_for_playing_sound = false;
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
@@ -110,8 +124,23 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 	// gameScene->Initialize();
 
+
 	// メインループ
 	while (true) {
+
+		//if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+
+		//	if (msg.message == WM_QUIT)
+		//		break;
+		//	TranslateMessage(&msg);
+		//	DispatchMessage(&msg);
+		//} else {
+
+		//	// サウンドの再生
+		//	if (condition_for_playing_sound) {
+		//		sound->PlayWaveFile(); // SoundクラスのPlay()メソッドを呼び出す
+		//	}
+		//}
 
 		// リセット
 		if (Input::GetInstance()->PushKey(DIK_R)) {

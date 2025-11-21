@@ -9,9 +9,9 @@
 
 using namespace KamataEngine;
 
-void Player::Initialize(Model* model, Camera* camera, const Vector3& position) {
+void Player::Initialize(Model* model, Model* modelAttack, Camera* camera, const Vector3& position) {
 	assert(model);
-
+	modelAttack_ = modelAttack;
 	model_ = model;
 	camera_ = camera;
 
@@ -20,6 +20,10 @@ void Player::Initialize(Model* model, Camera* camera, const Vector3& position) {
 	worldTransform_.translation_ = position;
 
 	worldTransform_.rotation_.y = std::numbers::pi_v<float> / 2.0f;
+
+	worldTransformAttack_.Initialize();
+	worldTransformAttack_.translation_ = worldTransform_.translation_;
+	worldTransformAttack_.rotation_ = worldTransform_.rotation_;
 }
 
 void Player::InputMove() {
@@ -364,11 +368,45 @@ Vector3 Player::CornerPosition(const Vector3& center, Corner corner) {
 	return center + offsetTable[static_cast<uint32_t>(corner)];
 }
 
+
+void Player::BehaviorRootInitialize() {}
+
+void Player::BehaviorAttackInitialize() {}
+
+
+void Player::BehaviorRootUpdate() {
+	if(Input::GetInstance()->PushKey(DIK_SPACE)){
+		//攻撃ビヘイビアをリクエスト
+		behaviorRequest_ = Behavior::kAttack;
+		};
+}
+
+
+
+
+
+
 void Player::UpDate() {
+	//
+	if (behaviorRequest_ != Behavior::kUnknown) {
+
+		// ふるまい
+		behavior_ = behaviorRequest_;
+		switch (behavior_) {
+		case Behavior::kRoot:
+		default:
+			BehaviorRootinitialize();
+			break;
+
+		case Behavior::kAttack:
+			BehaviorAttackinitialize();
+			break;
+		}
+		behaviorRequest_ = Behavior::kUnknown;
+	}
 
 	// 移動入力(02_07 スライド10枚目)
 	InputMove();
-
 	// 移動入力
 	// 衝突情報を初期化
 	CollisionMapInfo collisionMapInfo = {};

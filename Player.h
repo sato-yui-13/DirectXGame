@@ -27,10 +27,61 @@ public:
 	// 角 02_07スライド16枚目
 	enum Corner { kRightBottom, kLeftBottom, kRightTop, kLeftTop, kNumCorner };
 
+	// ふるまい
+	enum class Behavior {
+		kUnknown = -1, // 無効な状態
+		kRoot,
+		kAttack,
+
+	};
+
+	// 攻撃フェーズ
+	enum class AttackPhase {
+		kUnknown = -1, // 無効な状態
+		kAnticipation, // 予備の動作
+		kAction,       // 前進の動作
+		kRecovery,     // 余韻の動作
+	};
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(Model* model_, Camera* camera_, const Vector3& position);
+	void Initialize(Model* model_, Model* modelAttack, Camera* camera_, const Vector3& position);
+
+	// 予備動作
+	static inline const uint32_t kAnticipationTime = 8;
+	// 前進動作の時間
+	static inline const uint32_t kActionTime = 8;
+	// 余韻動作の時間
+	static inline const uint32_t kRctionTime = 8;
+
+	Model* modelAttack_ = nullptr;
+	WorldTransform worldTransformAttack_;
+	Behavior behavior_ = Behavior::kRoot;
+
+	// 次の振るまいリクエスト
+	Behavior behaviorRequest_ = Behavior::kUnknown;
+
+	// 攻撃ギミックの媒介変数
+	uint32_t attackParameter = 0;
+
+	// 攻撃フェーズ
+	AttackPhase attackPhase_= AttackPhase::kUnknown;
+	AttackPhase attackPhaseRequest= AttackPhase::kUnknown;
+
+	// 通常行動初期化
+	void BehaviorRootInitialize();
+	
+	// 通常行動更新
+	void BehaviorRootUpdate();
+
+	// 攻擊行動初期化
+	void BehaviorAttackInitialize();
+
+	// 攻撃行動更新
+	void BehaviorAttackUpdate();
+
+
 
 	/// <summary>
 	/// 更新
@@ -41,6 +92,9 @@ public:
 	/// 描画
 	/// </summary>
 	void Draw();
+
+	// 通常行動更新
+	//void BehaviorRootUpdate();
 
 	// getter(02_06スライド11枚目で追加)
 	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
@@ -69,7 +123,7 @@ private:
 
 	// モデル
 	Model* model_ = nullptr;
-
+	//Model* modelAttack_ = nullptr;
 	// テクスチャハンドル
 	//  uint32_t textureHandle_ = 0u;
 

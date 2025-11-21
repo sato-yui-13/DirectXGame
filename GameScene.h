@@ -43,6 +43,10 @@ private:
 		kFadeOut,
 	};
 
+
+	
+	//2-14
+	KamataEngine::Model* modelPlayerAttack_ = nullptr;
 	// 02_12 4枚目 ゲームの現在フェーズ（変数）
 	Phase phase_;
 
