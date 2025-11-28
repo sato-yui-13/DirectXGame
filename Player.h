@@ -58,6 +58,8 @@ public:
 	Model* modelAttack_ = nullptr;
 	WorldTransform worldTransformAttack_;
 	Behavior behavior_ = Behavior::kRoot;
+	
+	//Behavior::kDefeated;
 
 	// 次の振るまいリクエスト
 	Behavior behaviorRequest_ = Behavior::kUnknown;
@@ -117,7 +119,15 @@ public:
 	// 02_12 11枚目 デスフラグ
 	bool IsDead() const { return isDead_; }
 
+	void AnimateTurn();
+	
+
 private:
+
+	//攻撃ギミックのケイか時間カウンター
+	uint32_t attackParameter_ = 0;
+
+
 	// ワールド変換データ
 	WorldTransform worldTransform_;
 

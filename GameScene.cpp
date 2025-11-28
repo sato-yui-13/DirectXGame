@@ -200,9 +200,13 @@ void GameScene::Update() {
 	//  自キャラの更新
 	player_->UpDate();
 
+	//player_->BehaviorRootUpdate();
+
 	for (Enemy* enemy : enemies_) {
 		enemy->UpDate();
 	}
+
+	//デスflagの立った敵を
 
 	ChangePhase();
 

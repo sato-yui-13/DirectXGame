@@ -66,8 +66,8 @@ Matrix4x4 MakeRotateZMatrix(float radian);
 Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate);
 
 // イージング
-float EaseInOut(float start, float end, float t);
-
+float EaseOut(float start, float end, float t);
+float EaseIn(float start, float end, float t);
 Vector3& operator+=(Vector3& lhv, const Vector3& rhv);
 
 Vector3& operator-=(Vector3& lhv, const Vector3& rhv);

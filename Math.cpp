@@ -387,7 +387,13 @@ Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Ve
 	return result;
 }
 
-float EaseInOut(float start, float end, float t) {
+float EaseOut(float start, float end, float t) {
+	// tは0.0～1.0の範囲
+	t = t * t * (3.0f - 2.0f * t); // スムーズステップ
+	return start + (end - start) * t;
+}
+
+float EaseIn(float start, float end, float t) {
 	// tは0.0～1.0の範囲
 	t = t * t * (3.0f - 2.0f * t); // スムーズステップ
 	return start + (end - start) * t;
